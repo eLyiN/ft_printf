@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 19:51:58 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/11 23:30:38 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/13 08:53:25 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,25 @@ int	ft_printf(const char *format, ...)
 	while (format[i++]) //while string exist
 	{
 		if (format == '%')
-			i = ft_eval_format(tab, format, i + 1);
+			i += ft_eval_format(tab, format, i + 1);
 		else
 			ret += write(1, &format[i], 1);
 	}
-	return (i);
+	va_end(tab->args);
+	ret += tab->tl;
+	return (ret);
 }
 
 int	ft_eval_format(t_print *tab, const char *format, int pos)
 {
-	if (format[pos] == 'c')
+	if (!ft_strchr(format[pos], SYMBOLALLOW))
+		return (1);
+	else if (format[pos] == 'c')
 		ft_print_char(tab);
 	else if (format[pos] == 's')
 		ft_print_string(tab);
 	else if (format[pos] == 'p')
-		ft_print_pointer(tab);
+		ft_print_memory(tab);
 	else if (format[pos] == 'n')
 		ft_print_nothing(tab);
 	else if (format[pos] == 'd' || format[pos] == 'i')
@@ -70,4 +74,5 @@ int	ft_eval_format(t_print *tab, const char *format, int pos)
 		ft_print_upperhex(tab);
 	else if (format[pos] == '%')
 		ft_print_procent(tab);
+	return (1);
 }
