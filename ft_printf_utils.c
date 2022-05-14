@@ -6,22 +6,20 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 22:45:58 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/13 21:55:26 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/14 23:15:05 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_unbrcount(int c)
+int	ft_unbrcount(unsigned int c)
 {
 	int	i;
 
 	i = 0;
-	if (c == 0 || c < 0)
-	{
+	if (c == 0)
 		return (1);
-	}
-	while (c < 0)
+	while (c > 0)
 	{
 		c = c / 10;
 		i++;
@@ -29,7 +27,7 @@ int	ft_unbrcount(int c)
 	return (i);
 }
 
-char	*ft_uitoa(int n)
+char	*ft_uitoa(unsigned int n)
 {
 	char	*fresh_str;
 	int		i;

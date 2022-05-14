@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 19:53:26 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/14 10:00:28 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/14 23:00:22 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define SYMBOLALLOW "cspdiuxX%"
 # include "../libft/libft.h"
 # include <stdarg.h>
+# include <stdint.h>
 # include <unistd.h>
 
 typedef struct s_print
@@ -41,11 +42,11 @@ int		ft_print_u_integer(t_print *tab);
 int		ft_print_s_integer(t_print *tab);
 int		ft_print_string(t_print *tab);
 int		ft_print_char(t_print *tab);
-char	*ft_uitoa(int n);
-int		ft_unbrcount(int c);
+char	*ft_uitoa(unsigned int n);
+int		ft_unbrcount(unsigned int c);
 int		ft_eval_format(t_print *tab, const char *format, int pos);
 int		ft_printf(const char *format, ...);
-int		ft_ptr_len(intptr_t num);
-void	ft_put_ptr(intptr_t num);
+int		ft_ptr_len(uintptr_t num);
+void	ft_put_ptr(uintptr_t num);
 
 #endif

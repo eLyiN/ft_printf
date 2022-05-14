@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 23:50:14 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/14 09:26:54 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/14 23:29:31 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,18 @@ int	ft_print_hex(t_print *tab, char format)
 
 	nb = va_arg(tab->args, unsigned int);
 	if (nb == 0)
-		return (write(1, "0", 1));
+	{
+		tab->tl += write(1, "0", 1);
+		return (1);
+	}
 	else
 		ft_format_hex(nb, format);
-	tab->tl = ft_lenght_hex(nb);
+	tab->tl += ft_lenght_hex(nb);
 	return (1);
 }
 
 int	ft_print_procent(t_print *tab)
 {
-	tab->tl += 1;
-	write(1, "%", 1);
+	tab->tl += write(1, "%", 1);
 	return (1);
 }

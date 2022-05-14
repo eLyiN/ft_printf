@@ -3,4 +3,5 @@ pft/
 *.o
 *.a
 test.c
-printfTester/
+.v*
+ft_printf_tester/

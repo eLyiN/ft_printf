@@ -6,14 +6,14 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 08:47:24 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/14 09:59:57 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/14 23:05:26 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdint.h>
 
-int	ft_ptr_len(intptr_t num)
+int	ft_ptr_len(uintptr_t num)
 {
 	int	len;
 
@@ -26,7 +26,7 @@ int	ft_ptr_len(intptr_t num)
 	return (len);
 }
 
-void	ft_put_ptr(intptr_t num)
+void	ft_put_ptr(uintptr_t num)
 {
 	if (num >= 16)
 	{
@@ -49,11 +49,11 @@ int	ft_print_pointer(t_print *tab)
 
 	ptr = va_arg(tab->args, unsigned long long);
 	print_length = 0;
-	print_length += write(1, "0x", 2);
 	if (ptr == 0)
-		print_length += write(1, "0", 1);
+		print_length += write(1, "(nil)", 5);
 	else
 	{
+		print_length += write(1, "0x", 2);
 		ft_put_ptr(ptr);
 		print_length += ft_ptr_len(ptr);
 	}

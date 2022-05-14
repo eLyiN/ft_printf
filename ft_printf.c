@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 19:51:58 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/14 09:56:49 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/14 23:29:35 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_printf(const char *format, ...)
 	while (format[i]) //while string exist
 	{
 		if (format[i] == '%')
-			i += ft_eval_format(tab, format, i + 1);
+			i = ft_eval_format(tab, format, i + 1);
 		else
 			ret += write(1, &format[i], 1);
 		i++;
@@ -62,8 +62,6 @@ int	ft_eval_format(t_print *tab, const char *format, int pos)
 		ft_print_string(tab);
 	else if (format[pos] == 'p')
 		ft_print_pointer(tab);
-	/*else if (format[pos] == 'n')
-		ft_print_nothing(tab);*/
 	else if (format[pos] == 'd' || format[pos] == 'i')
 		ft_print_s_integer(tab);
 	else if (format[pos] == 'u')
@@ -72,5 +70,5 @@ int	ft_eval_format(t_print *tab, const char *format, int pos)
 		ft_print_hex(tab, format[pos]);
 	else if (format[pos] == '%')
 		ft_print_procent(tab);
-	return (1);
+	return (pos);
 }
