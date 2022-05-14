@@ -1,0 +1,6 @@
+pft/
+pft/
+*.o
+*.a
+test.c
+printfTester/

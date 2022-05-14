@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 23:50:44 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/13 00:40:17 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/14 09:24:17 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,19 @@ int	ft_print_char(t_print *tab)
 }
 int	ft_print_string(t_print *tab)
 {
-	char	*str;
-	int		i;
+	char *str;
+	int i;
 
 	i = 0;
-	str = va_arg(tab->args, int);
+	str = va_arg(tab->args, char *);
 	if (str == NULL)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		write(1, "(null)", 7);
+		tab->tl += 7;
+		return (2);
 	}
-	while (str[i++])
-		write(1, &str[i], 1);
+	while (str[i])
+		write(1, &str[i++], 1);
 	tab->tl += i;
 	return (1);
-}
-int	ft_print_pointer(t_print *tab)
-{
-	char *str;
-
-	str = va_arg(tab->args, int);
-	write(1, &str, 1);
 }

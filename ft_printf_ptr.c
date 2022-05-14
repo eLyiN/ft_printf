@@ -6,78 +6,57 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 08:47:24 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/13 08:58:10 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/14 09:59:57 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdint.h>
 
-void	ft_putchar(char c)
+int	ft_ptr_len(intptr_t num)
 {
-	write(1, &c, 1);
-}
-
-void	print_ascii(const char *addr, int i)
-{
-	int	j;
 	int	len;
 
-	j = 0;
-	if ((i + 1) % 16 == 0)
-		len = 16;
+	len = 0;
+	while (num != 0)
+	{
+		len++;
+		num = num / 16;
+	}
+	return (len);
+}
+
+void	ft_put_ptr(intptr_t num)
+{
+	if (num >= 16)
+	{
+		ft_put_ptr(num / 16);
+		ft_put_ptr(num % 16);
+	}
 	else
-		len = (i + 1) % 16;
-	while (j < 16 - len)
 	{
-		ft_putchar(' ');
-		ft_putchar(' ');
-		if (j % 2)
-			ft_putchar(' ');
-		j++;
-	}
-	if ((16 - len) % 2)
-		ft_putchar(' ');
-	j = 0;
-	while (j < len)
-	{
-		if (*(addr + i / 16 * 16 + j) >= 32 && *(addr + i / 16 * 16 + j) <= 126)
-			ft_putchar(*(addr + i / 16 * 16 + j));
+		if (num <= 9)
+			ft_putchar_fd((num + '0'), 1);
 		else
-			ft_putchar('.');
-		j++;
-	}
-	ft_putchar('\n');
-}
-
-void	print_hex(unsigned char value, int index)
-{
-	if (index < 2)
-	{
-		print_hex(value / 16, index + 1);
-		if (value % 16 >= 10)
-			ft_putchar('a' + value % 16 % 10);
-		else
-			ft_putchar('0' + value % 16);
+			ft_putchar_fd((num - 10 + 'a'), 1);
 	}
 }
 
-void	ft_print_memory(t_list *tab, size_t size)
+int	ft_print_pointer(t_print *tab)
 {
-	char *ptr;
-	size_t i;
+	int print_length;
+	unsigned long long ptr;
 
-	if (tab && size > 0)
+	ptr = va_arg(tab->args, unsigned long long);
+	print_length = 0;
+	print_length += write(1, "0x", 2);
+	if (ptr == 0)
+		print_length += write(1, "0", 1);
+	else
 	{
-		ptr = va_arg(tab->args, int);
-		i = 0;
-		while (i < size)
-		{
-			print_hex(*(ptr + i), 0);
-			if (i % 2)
-				ft_putchar(' ');
-			if ((i + 1) % 16 == 0 || (i + 1) == size)
-				print_ascii(tab, i);
-			i++;
-		}
+		ft_put_ptr(ptr);
+		print_length += ft_ptr_len(ptr);
 	}
+	tab->tl += print_length;
+	return (1);
 }

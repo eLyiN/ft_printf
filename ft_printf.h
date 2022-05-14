@@ -6,16 +6,16 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 19:53:26 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/12 23:59:53 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/14 10:00:28 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # define SYMBOLALLOW "cspdiuxX%"
-# include "libft.h"
+# include "../libft/libft.h"
 # include <stdarg.h>
-# include <stdio.h>
+# include <unistd.h>
 
 typedef struct s_print
 {
@@ -30,5 +30,22 @@ typedef struct s_print
 	int is_zero;  //# is number zero
 	int perc;     //# %
 	int sp;       //# space flag ' '
-}	t_print;
+}		t_print;
+
+int		ft_print_pointer(t_print *tab);
+int		ft_print_hex(t_print *tab, char format);
+int		ft_print_procent(t_print *tab);
+void	ft_format_hex(unsigned int nb, char format);
+int		ft_lenght_hex(unsigned int nb);
+int		ft_print_u_integer(t_print *tab);
+int		ft_print_s_integer(t_print *tab);
+int		ft_print_string(t_print *tab);
+int		ft_print_char(t_print *tab);
+char	*ft_uitoa(int n);
+int		ft_unbrcount(int c);
+int		ft_eval_format(t_print *tab, const char *format, int pos);
+int		ft_printf(const char *format, ...);
+int		ft_ptr_len(intptr_t num);
+void	ft_put_ptr(intptr_t num);
+
 #endif

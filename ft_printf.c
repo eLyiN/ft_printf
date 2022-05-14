@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 19:51:58 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/13 08:53:25 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/05/14 09:56:49 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,42 +36,40 @@ int	ft_printf(const char *format, ...)
 	tab = (t_print *)malloc(sizeof(t_print));
 	if (!tab)
 		return (-1);
-	ft_initialise_tab(tab);
+	tab = ft_initialise_tab(tab);
 	va_start(tab->args, format);
-	i = -1;
+	i = 0;
 	ret = 0;
-	while (format[i++]) //while string exist
+	while (format[i]) //while string exist
 	{
-		if (format == '%')
+		if (format[i] == '%')
 			i += ft_eval_format(tab, format, i + 1);
 		else
 			ret += write(1, &format[i], 1);
+		i++;
 	}
 	va_end(tab->args);
 	ret += tab->tl;
+	free(tab);
 	return (ret);
 }
 
 int	ft_eval_format(t_print *tab, const char *format, int pos)
 {
-	if (!ft_strchr(format[pos], SYMBOLALLOW))
-		return (1);
-	else if (format[pos] == 'c')
+	if (format[pos] == 'c')
 		ft_print_char(tab);
 	else if (format[pos] == 's')
 		ft_print_string(tab);
 	else if (format[pos] == 'p')
-		ft_print_memory(tab);
-	else if (format[pos] == 'n')
-		ft_print_nothing(tab);
+		ft_print_pointer(tab);
+	/*else if (format[pos] == 'n')
+		ft_print_nothing(tab);*/
 	else if (format[pos] == 'd' || format[pos] == 'i')
 		ft_print_s_integer(tab);
 	else if (format[pos] == 'u')
 		ft_print_u_integer(tab);
-	else if (format[pos] == 'x')
-		ft_print_lowerhex(tab);
-	else if (format[pos] == 'X')
-		ft_print_upperhex(tab);
+	else if (format[pos] == 'x' || format[pos] == 'X')
+		ft_print_hex(tab, format[pos]);
 	else if (format[pos] == '%')
 		ft_print_procent(tab);
 	return (1);
