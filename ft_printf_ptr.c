@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 08:47:24 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/14 23:05:26 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/07/11 12:01:04 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,16 @@ void	ft_put_ptr(uintptr_t num)
 
 int	ft_print_pointer(t_print *tab)
 {
-	int print_length;
-	unsigned long long ptr;
+	int					print_length;
+	unsigned long long	ptr;
 
 	ptr = va_arg(tab->args, unsigned long long);
 	print_length = 0;
 	if (ptr == 0)
-		print_length += write(1, "(nil)", 5);
+	{
+		print_length += write(1, "0x", 2);
+		print_length += write(1, "0", 1);
+	}
 	else
 	{
 		print_length += write(1, "0x", 2);

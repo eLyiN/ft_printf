@@ -6,7 +6,7 @@
 #    By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 15:33:13 by aarribas          #+#    #+#              #
-#    Updated: 2022/05/14 20:37:21 by aarribas         ###   ########.fr        #
+#    Updated: 2022/07/11 11:53:12 by aarribas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,5 @@ fclean:			clean
 				$(RM) $(NAME)
 
 re:				fclean $(NAME)
-bonus:			$(BONUS_OBJS)
-				ar rcs $(NAME) $(BONUS_OBJS)
 
-.PHONY:			all clean fclean re bonus
+.PHONY:			all clean fclean re
